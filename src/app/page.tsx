@@ -2,45 +2,47 @@ import { Navbar } from "@/components/layout/Navbar";
 import { AmbientSpotlight } from "@/components/hero/AmbientSpotlight";
 import { SplitHero } from "@/components/hero/SplitHero";
 import { StatsTicker } from "@/components/hero/StatsTicker";
+import { FlagshipBanner } from "@/components/showcase/FlagshipBanner";
+import { PlatformsBento } from "@/components/showcase/PlatformsBento";
+import { AISandboxWidget } from "@/components/showcase/AISandboxWidget";
+import { CurriculumTracks } from "@/components/showcase/CurriculumTracks";
 import {
   Brain,
   Cpu,
   Layers,
-  Sparkles,
-  ArrowRight,
-  Code2,
   Database,
-  ExternalLink,
-  ChevronRight,
 } from "lucide-react";
 
 export default function Home() {
   return (
     <main className="relative min-h-screen bg-[#07080A] text-[#F0F6FC]">
-      {/* 1. Global Ambient Spotlight & Lighting Layer */}
+      {/* Global Ambient Lighting & Cursor Spotlight */}
       <AmbientSpotlight />
 
-      {/* 2. Global CSS Grid Overlay */}
+      {/* Background Tech Grid Pattern */}
       <div className="fixed inset-0 bg-grid-pattern opacity-40 pointer-events-none z-0" />
 
-      {/* 3. Sticky Glassmorphic Navbar */}
+      {/* 1. Sticky Navigation Bar */}
       <Navbar />
 
-      {/* 4. Split Typography Hero Section */}
+      {/* 2. Hero Section */}
       <div id="overview">
         <SplitHero />
       </div>
 
-      {/* 5. Live Department Metrics & KPI Ticker */}
+      {/* 3. Live Department Stats Ticker */}
       <StatsTicker />
 
-      {/* 6. Core Pillars Preview Section (Anchors for smooth scroll) */}
+      {/* 4. Flagship Event Spotlight Banner (Sub-phase 3.1) */}
+      <FlagshipBanner />
+
+      {/* 5. Core Academic & Research Pillars */}
       <section id="pillars" className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-white/5">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono uppercase tracking-wider text-[#00F0FF] bg-[#00F0FF]/10 border border-[#00F0FF]/20 mb-3">
               <Brain className="w-3.5 h-3.5" />
-              Academic &amp; Research Pillars
+              Academic &amp; Research Foundations
             </div>
             <h2 className="font-[family-name:var(--font-outfit)] text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
               Frontiers of Artificial Intelligence
@@ -105,36 +107,19 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 7. Department Digital Platforms Showcase (Anchor) */}
-      <section id="platforms" className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-white/5">
-        <div className="glass-card rounded-3xl p-8 sm:p-12 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-[#00F0FF]/10 via-[#8B5CF6]/10 to-transparent blur-3xl pointer-events-none" />
-          
-          <div className="max-w-2xl relative z-10">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#00F0FF]">
-              Department Ecosystem
-            </span>
-            <h2 className="font-[family-name:var(--font-outfit)] text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-2 mb-4">
-              Digital Platforms &amp; Student Innovations
-            </h2>
-            <p className="text-sm sm:text-base text-[#8B949E] leading-relaxed mb-8">
-              We do not just teach theory — our students and research labs build active platforms, campus software, and national hackathon winners.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <a
-                href="#research"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-semibold bg-white/10 hover:bg-white/15 text-white border border-white/10 transition-colors"
-              >
-                <span>Browse Research Papers</span>
-                <ChevronRight className="w-4 h-4" />
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* 6. Student Platforms Bento Grid (Sub-phase 3.2) */}
+      <PlatformsBento />
 
-      {/* 8. Footer */}
-      <footer id="contact" className="relative z-10 border-t border-white/5 py-12 bg-[#07080A]/90">
+      {/* 7. Live Interactive AI Tokenizer & Sandbox (Sub-phase 3.3) */}
+      <div id="sandbox">
+        <AISandboxWidget />
+      </div>
+
+      {/* 8. Specialization Curriculum Pathways (Sub-phase 3.4) */}
+      <CurriculumTracks />
+
+      {/* 9. Department Footer */}
+      <footer id="contact" className="relative z-10 border-t border-white/5 py-12 bg-[#07080A]/95">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <div className="w-7 h-7 rounded-lg bg-[#00F0FF]/10 border border-[#00F0FF]/20 flex items-center justify-center text-[#00F0FF]">
