@@ -1,164 +1,154 @@
+import { Navbar } from "@/components/layout/Navbar";
+import { AmbientSpotlight } from "@/components/hero/AmbientSpotlight";
+import { SplitHero } from "@/components/hero/SplitHero";
+import { StatsTicker } from "@/components/hero/StatsTicker";
 import {
+  Brain,
   Cpu,
-  Sparkles,
   Layers,
+  Sparkles,
   ArrowRight,
-  ShieldCheck,
-  Terminal,
-  Activity,
-  Compass,
+  Code2,
+  Database,
+  ExternalLink,
+  ChevronRight,
 } from "lucide-react";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen bg-[#07080A] text-[#F0F6FC] overflow-hidden">
-      {/* Ambient Radial Mesh & Grid */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-40 pointer-events-none" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-gradient-to-b from-[#00F0FF]/15 via-[#8B5CF6]/10 to-transparent blur-[120px] pointer-events-none" />
+    <main className="relative min-h-screen bg-[#07080A] text-[#F0F6FC]">
+      {/* 1. Global Ambient Spotlight & Lighting Layer */}
+      <AmbientSpotlight />
 
-      {/* Header Bar */}
-      <header className="sticky top-0 z-50 border-b border-white/5 bg-[#07080A]/70 backdrop-blur-xl">
-        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-[#00F0FF]/20 to-[#8B5CF6]/20 border border-white/10 flex items-center justify-center">
-              <Cpu className="w-5 h-5 text-[#00F0FF]" />
-            </div>
-            <span className="font-[family-name:var(--font-outfit)] font-semibold tracking-tight text-lg text-white">
-              DEPT OF <span className="text-[#00F0FF]">AIML</span>
-            </span>
-          </div>
+      {/* 2. Global CSS Grid Overlay */}
+      <div className="fixed inset-0 bg-grid-pattern opacity-40 pointer-events-none z-0" />
 
-          <div className="flex items-center gap-3">
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              Phase 1 Active
-            </span>
-          </div>
-        </div>
-      </header>
+      {/* 3. Sticky Glassmorphic Navbar */}
+      <Navbar />
 
-      {/* Hero Smoke Test Section */}
-      <section className="relative max-w-5xl mx-auto px-6 pt-24 pb-20 text-center">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium bg-white/5 border border-white/10 text-white/80 mb-6">
-          <Sparkles className="w-3.5 h-3.5 text-[#00F0FF]" />
-          <span>Foundation & Architecture Initialized</span>
-        </div>
+      {/* 4. Split Typography Hero Section */}
+      <div id="overview">
+        <SplitHero />
+      </div>
 
-        <h1 className="font-[family-name:var(--font-outfit)] text-4xl sm:text-6xl font-extrabold tracking-tight text-white mb-6">
-          Intelligence in Motion. <br />
-          <span className="bg-gradient-to-r from-[#00F0FF] via-[#A78BFA] to-[#EC4899] bg-clip-text text-transparent">
-            Built for What’s Next.
-          </span>
-        </h1>
+      {/* 5. Live Department Metrics & KPI Ticker */}
+      <StatsTicker />
 
-        <p className="max-w-2xl mx-auto text-base sm:text-lg text-[#8B949E] leading-relaxed mb-10">
-          Welcome to the official digital hub of the Artificial Intelligence and
-          Machine Learning Department. Next.js App Router, Tailwind tokens, and
-          Lenis physics are active.
-        </p>
-
-        <div className="flex flex-wrap items-center justify-center gap-4">
-          <a
-            href="#foundation-cards"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-sm bg-gradient-to-r from-[#00F0FF] to-[#3B82F6] text-black hover:opacity-95 transition-all shadow-[0_0_20px_rgba(0,240,255,0.3)]"
-          >
-            Explore System Stack
-            <ArrowRight className="w-4 h-4" />
-          </a>
-          <div className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-sm bg-white/5 hover:bg-white/10 text-white border border-white/10 transition-colors">
-            <Terminal className="w-4 h-4 text-[#8B949E]" />
-            Lenis Smooth Scroll v1.3
-          </div>
-        </div>
-      </section>
-
-      {/* Architecture Cards Showcase (Tests Grid, Glassmorphism & Tokens) */}
-      <section id="foundation-cards" className="max-w-6xl mx-auto px-6 py-16">
-        <div className="flex items-center justify-between mb-8">
+      {/* 6. Core Pillars Preview Section (Anchors for smooth scroll) */}
+      <section id="pillars" className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-white/5">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
           <div>
-            <h2 className="font-[family-name:var(--font-outfit)] text-2xl font-bold text-white tracking-tight">
-              Phase 1 Engineering Foundation
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono uppercase tracking-wider text-[#00F0FF] bg-[#00F0FF]/10 border border-[#00F0FF]/20 mb-3">
+              <Brain className="w-3.5 h-3.5" />
+              Academic &amp; Research Pillars
+            </div>
+            <h2 className="font-[family-name:var(--font-outfit)] text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+              Frontiers of Artificial Intelligence
             </h2>
-            <p className="text-sm text-[#8B949E]">
-              Core architectural pillars verified and operational.
-            </p>
           </div>
+          <p className="mt-3 md:mt-0 text-sm text-[#8B949E] max-w-md">
+            Our curriculum and research labs bridge foundational mathematics with high-scale autonomous applications.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Card 1 */}
-          <div className="glass-card rounded-2xl p-6 transition-all duration-300">
-            <div className="w-12 h-12 rounded-xl bg-[#00F0FF]/10 border border-[#00F0FF]/20 flex items-center justify-center text-[#00F0FF] mb-5">
-              <Activity className="w-6 h-6" />
+          <div className="glass-card rounded-2xl p-6 sm:p-7 group transition-all duration-300">
+            <div className="w-12 h-12 rounded-xl bg-[#00F0FF]/10 border border-[#00F0FF]/20 flex items-center justify-center text-[#00F0FF] mb-5 group-hover:scale-110 transition-transform">
+              <Cpu className="w-6 h-6" />
             </div>
-            <h3 className="font-[family-name:var(--font-outfit)] text-lg font-semibold text-white mb-2">
-              Lenis Smooth Physics
+            <h3 className="font-[family-name:var(--font-outfit)] text-xl font-bold text-white mb-2">
+              Neural Systems &amp; Deep Learning
             </h3>
             <p className="text-sm text-[#8B949E] leading-relaxed mb-4">
-              Normalized momentum scroll running on requestAnimationFrame. Zero
-              stutter, no layout hijacking, silky smooth 60-120fps.
+              Convolutional architectures, transformers, and self-supervised models trained on accelerated GPU clusters.
             </p>
-            <span className="text-xs font-mono text-[#00F0FF] bg-[#00F0FF]/10 px-2.5 py-1 rounded-md">
-              Lerp Interpolation: Ready
-            </span>
+            <div className="flex flex-wrap gap-2 text-xs font-mono text-[#00F0FF]/80">
+              <span className="px-2 py-0.5 rounded bg-white/5 border border-white/5">PyTorch</span>
+              <span className="px-2 py-0.5 rounded bg-white/5 border border-white/5">CUDA</span>
+              <span className="px-2 py-0.5 rounded bg-white/5 border border-white/5">TensorRT</span>
+            </div>
           </div>
 
-          {/* Card 2 */}
-          <div className="glass-card rounded-2xl p-6 transition-all duration-300">
-            <div className="w-12 h-12 rounded-xl bg-[#8B5CF6]/10 border border-[#8B5CF6]/20 flex items-center justify-center text-[#8B5CF6] mb-5">
+          <div className="glass-card rounded-2xl p-6 sm:p-7 group transition-all duration-300">
+            <div className="w-12 h-12 rounded-xl bg-[#8B5CF6]/10 border border-[#8B5CF6]/20 flex items-center justify-center text-[#8B5CF6] mb-5 group-hover:scale-110 transition-transform">
               <Layers className="w-6 h-6" />
             </div>
-            <h3 className="font-[family-name:var(--font-outfit)] text-lg font-semibold text-white mb-2">
-              Obsidian Cyber Tokens
+            <h3 className="font-[family-name:var(--font-outfit)] text-xl font-bold text-white mb-2">
+              Generative AI &amp; Reasoning Agents
             </h3>
             <p className="text-sm text-[#8B949E] leading-relaxed mb-4">
-              Harmonized dark palette, subtle grid background, custom neon cyan
-              and hyper violet accents with glassmorphism card wrappers.
+              Building multi-agent orchestrations, context engineering, retrieval systems (RAG), and parameter-efficient fine-tuning.
             </p>
-            <span className="text-xs font-mono text-[#8B5CF6] bg-[#8B5CF6]/10 px-2.5 py-1 rounded-md">
-              CSS Variables: Loaded
-            </span>
+            <div className="flex flex-wrap gap-2 text-xs font-mono text-[#8B5CF6]/80">
+              <span className="px-2 py-0.5 rounded bg-white/5 border border-white/5">LangGraph</span>
+              <span className="px-2 py-0.5 rounded bg-white/5 border border-white/5">HuggingFace</span>
+              <span className="px-2 py-0.5 rounded bg-white/5 border border-white/5">LoRA</span>
+            </div>
           </div>
 
-          {/* Card 3 */}
-          <div className="glass-card rounded-2xl p-6 transition-all duration-300">
-            <div className="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-5">
-              <ShieldCheck className="w-6 h-6" />
+          <div className="glass-card rounded-2xl p-6 sm:p-7 group transition-all duration-300">
+            <div className="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-5 group-hover:scale-110 transition-transform">
+              <Database className="w-6 h-6" />
             </div>
-            <h3 className="font-[family-name:var(--font-outfit)] text-lg font-semibold text-white mb-2">
-              Type-Safe Architecture
+            <h3 className="font-[family-name:var(--font-outfit)] text-xl font-bold text-white mb-2">
+              Autonomous Edge &amp; Robotics
             </h3>
             <p className="text-sm text-[#8B949E] leading-relaxed mb-4">
-              Next.js 16 App Router paired with React 19 and TypeScript 5.
-              Pre-rendering server components for instant initial page delivery.
+              Quantized edge models, computer vision for drone navigation, and reinforcement learning in real-world environments.
             </p>
-            <span className="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-md">
-              App Router (RSC): Active
-            </span>
+            <div className="flex flex-wrap gap-2 text-xs font-mono text-emerald-400/80">
+              <span className="px-2 py-0.5 rounded bg-white/5 border border-white/5">ROS 2</span>
+              <span className="px-2 py-0.5 rounded bg-white/5 border border-white/5">ONNX</span>
+              <span className="px-2 py-0.5 rounded bg-white/5 border border-white/5">Jetson Orin</span>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Extended Section to test scroll length & momentum */}
-      <section className="max-w-6xl mx-auto px-6 py-20 border-t border-white/5">
-        <div className="text-center max-w-xl mx-auto">
-          <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mx-auto mb-4 text-[#8B949E]">
-            <Compass className="w-5 h-5 text-[#00F0FF]" />
+      {/* 7. Department Digital Platforms Showcase (Anchor) */}
+      <section id="platforms" className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-white/5">
+        <div className="glass-card rounded-3xl p-8 sm:p-12 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-[#00F0FF]/10 via-[#8B5CF6]/10 to-transparent blur-3xl pointer-events-none" />
+          
+          <div className="max-w-2xl relative z-10">
+            <span className="text-xs font-mono uppercase tracking-widest text-[#00F0FF]">
+              Department Ecosystem
+            </span>
+            <h2 className="font-[family-name:var(--font-outfit)] text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-2 mb-4">
+              Digital Platforms &amp; Student Innovations
+            </h2>
+            <p className="text-sm sm:text-base text-[#8B949E] leading-relaxed mb-8">
+              We do not just teach theory — our students and research labs build active platforms, campus software, and national hackathon winners.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <a
+                href="#research"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-semibold bg-white/10 hover:bg-white/15 text-white border border-white/10 transition-colors"
+              >
+                <span>Browse Research Papers</span>
+                <ChevronRight className="w-4 h-4" />
+              </a>
+            </div>
           </div>
-          <h3 className="font-[family-name:var(--font-outfit)] text-xl font-bold text-white mb-2">
-            Ready for Phase 2: Hero & Dynamic Sections
-          </h3>
-          <p className="text-sm text-[#8B949E] mb-6">
-            Foundation verified. In the next phase, we build the split-screen
-            hero, real department statistics ticker, and navigation system.
+        </div>
+      </section>
+
+      {/* 8. Footer */}
+      <footer id="contact" className="relative z-10 border-t border-white/5 py-12 bg-[#07080A]/90">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-2">
+            <div className="w-7 h-7 rounded-lg bg-[#00F0FF]/10 border border-[#00F0FF]/20 flex items-center justify-center text-[#00F0FF]">
+              <Cpu className="w-4 h-4" />
+            </div>
+            <span className="font-[family-name:var(--font-outfit)] font-semibold text-sm text-white">
+              Department of Artificial Intelligence &amp; Machine Learning
+            </span>
+          </div>
+
+          <p className="text-xs text-[#8B949E]">
+            © 2026 AIML Department. Engineered with Next.js &amp; Lenis.
           </p>
         </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="border-t border-white/5 py-8 text-center text-xs text-[#8B949E]">
-        Department of Artificial Intelligence & Machine Learning • Phase 1
-        Foundation
       </footer>
     </main>
   );
