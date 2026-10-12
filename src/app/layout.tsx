@@ -30,9 +30,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${outfit.variable} ${inter.variable} dark antialiased`}
     >
-      <body className="min-h-screen bg-[#07080A] text-[#F0F6FC] selection:bg-[#00F0FF]/20 selection:text-[#00F0FF]">
+      <body
+        suppressHydrationWarning
+        className="min-h-screen bg-[#07080A] text-[#F0F6FC] selection:bg-[#00F0FF]/20 selection:text-[#00F0FF]"
+      >
         <SmoothScrollProvider>
           {children}
         </SmoothScrollProvider>
