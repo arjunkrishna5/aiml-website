@@ -2,15 +2,16 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Cpu, Menu, X, ArrowUpRight, Sparkles } from "lucide-react";
+import { Cpu, Menu, X, ArrowUpRight } from "lucide-react";
 
 const NAV_LINKS = [
   { name: "Overview", href: "/#overview" },
-  { name: "Faculty", href: "/faculty" },
-  { name: "Research", href: "/research" },
-  { name: "Events", href: "/events" },
-  { name: "Platforms", href: "/#platforms" },
-  { name: "AI Sandbox", href: "/#sandbox" },
+  { name: "About", href: "/#about" },
+  { name: "Pillars", href: "/#pillars" },
+  { name: "Events", href: "/#events" },
+  { name: "Projects", href: "/#projects" },
+  { name: "Committee", href: "/#committee" },
+  { name: "Labs", href: "/#labs" },
 ];
 
 export function Navbar() {
@@ -19,7 +20,7 @@ export function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 120);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -28,95 +29,78 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-4 left-0 right-0 z-50 transition-all duration-500 max-w-5xl mx-auto px-4 ${
         isScrolled
-          ? "bg-[#07080A]/80 backdrop-blur-xl border-b border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.5)]"
-          : "bg-transparent border-b border-white/5"
+          ? "opacity-100 translate-y-0 pointer-events-auto"
+          : "opacity-0 -translate-y-6 pointer-events-none"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo / Department Brand */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative w-10 h-10 rounded-xl bg-gradient-to-br from-[#00F0FF]/20 via-[#8B5CF6]/20 to-transparent border border-white/10 flex items-center justify-center transition-all duration-300 group-hover:border-[#00F0FF]/40 group-hover:shadow-[0_0_20px_rgba(0,240,255,0.25)]">
-              <Cpu className="w-5 h-5 text-[#00F0FF] transition-transform duration-300 group-hover:scale-110" />
-              <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-[#00F0FF] animate-pulse" />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-[family-name:var(--font-outfit)] font-bold text-lg tracking-tight text-white flex items-center gap-1.5">
-                DEPT OF <span className="text-[#00F0FF]">AIML</span>
-              </span>
-              <span className="text-[10px] uppercase font-mono tracking-widest text-[#8B949E]">
-                Autonomous Systems & AI
-              </span>
-            </div>
-          </Link>
-
-          {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-1 bg-white/[0.03] border border-white/5 rounded-full px-4 py-1.5 backdrop-blur-md">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className="px-3.5 py-1.5 rounded-full text-xs font-medium text-[#8B949E] hover:text-white hover:bg-white/5 transition-all"
-              >
-                {link.name}
-              </Link>
-            ))}
-          </nav>
-
-          {/* Action CTA & Mobile Toggle */}
-          <div className="flex items-center gap-3">
-            <Link
-              href="/#platforms"
-              className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold bg-white/5 hover:bg-white/10 text-white border border-white/10 hover:border-[#00F0FF]/40 transition-all duration-300 group shadow-sm"
-            >
-              <span>Explore Labs</span>
-              <ArrowUpRight className="w-3.5 h-3.5 text-[#00F0FF] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </Link>
-
-            {/* Mobile menu button */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-xl bg-white/5 border border-white/10 text-[#8B949E] hover:text-white transition-colors"
-              aria-label="Toggle Navigation Menu"
-            >
-              {mobileMenuOpen ? (
-                <X className="w-5 h-5 text-white" />
-              ) : (
-                <Menu className="w-5 h-5 text-white" />
-              )}
-            </button>
+      <div className="bg-[#10121A]/90 backdrop-blur-xl border border-white/10 rounded-full px-4 sm:px-6 py-2.5 shadow-2xl flex items-center justify-between">
+        
+        {/* Brand Pill */}
+        <Link href="/#overview" className="flex items-center gap-2 group">
+          <div className="w-7 h-7 rounded-full bg-red-600/20 border border-red-500/40 flex items-center justify-center text-red-500">
+            <Cpu className="w-3.5 h-3.5" />
           </div>
+          <span className="font-extrabold text-xs sm:text-sm text-white tracking-wider font-[family-name:var(--font-outfit)]">
+            CYPHER <span className="font-serif italic font-normal text-red-500 lowercase text-xs">ncerc</span>
+          </span>
+        </Link>
+
+        {/* Desktop Nav Links */}
+        <nav className="hidden md:flex items-center gap-1">
+          {NAV_LINKS.map((link) => (
+            <Link
+              key={link.name}
+              href={link.href}
+              className="px-3 py-1 rounded-full text-xs font-medium text-slate-300 hover:text-white hover:bg-white/5 transition-all"
+            >
+              {link.name}
+            </Link>
+          ))}
+        </nav>
+
+        {/* Right CTA */}
+        <div className="flex items-center gap-2">
+          <a
+            href="#contact"
+            className="hidden sm:inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold bg-[#DC2626] hover:bg-[#B91C1C] text-white shadow-md transition-all"
+          >
+            <span>CONTACT</span>
+            <ArrowUpRight className="w-3.5 h-3.5" />
+          </a>
+
+          {/* Mobile menu trigger */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-1.5 rounded-full bg-white/5 text-slate-300 hover:text-white"
+            aria-label="Toggle navigation"
+          >
+            {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+          </button>
         </div>
       </div>
 
-      {/* Mobile Drawer Menu */}
+      {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-b border-white/10 bg-[#07080A]/95 backdrop-blur-2xl px-6 pt-4 pb-6 space-y-3 animate-in fade-in slide-in-from-top-4 duration-200">
-          <div className="flex flex-col gap-1">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-4 py-2.5 rounded-lg text-sm font-medium text-[#8B949E] hover:text-white hover:bg-white/5 transition-colors"
-              >
-                {link.name}
-              </Link>
-            ))}
-          </div>
-
-          <div className="pt-3 border-t border-white/10">
-            <a
-              href="#platforms"
+        <div className="mt-2 p-4 rounded-3xl bg-[#10121A]/95 backdrop-blur-2xl border border-white/10 shadow-2xl space-y-2 md:hidden">
+          {NAV_LINKS.map((link) => (
+            <Link
+              key={link.name}
+              href={link.href}
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-xs font-semibold bg-gradient-to-r from-[#00F0FF] to-[#8B5CF6] text-black font-medium"
+              className="block px-4 py-2 rounded-xl text-xs font-medium text-slate-300 hover:text-white hover:bg-white/5"
             >
-              <span>Explore Department Platforms</span>
-              <ArrowUpRight className="w-4 h-4" />
-            </a>
-          </div>
+              {link.name}
+            </Link>
+          ))}
+          <a
+            href="#contact"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block text-center py-2.5 rounded-xl bg-[#DC2626] text-white text-xs font-bold"
+          >
+            CONTACT DEPT
+          </a>
         </div>
       )}
     </header>

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { Outfit, Inter } from "next/font/google";
+import { Outfit, Inter, Playfair_Display } from "next/font/google";
 import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
-import { APITesterModal } from "@/components/telemetry/APITesterModal";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -16,11 +15,26 @@ const inter = Inter({
   display: "swap",
 });
 
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-serif",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
-  title: "Department of Artificial Intelligence & Machine Learning",
+  title: "CYPHER | Department of AIML — Nehru College of Engineering & Research Centre",
   description:
-    "Official portal of the AIML Department — Pioneering research, innovation, autonomous computing, and next-generation intelligence.",
-  keywords: ["AIML", "Artificial Intelligence", "Machine Learning", "Research", "Engineering"],
+    "Official portal of CYPHER — Association of the Department of Artificial Intelligence & Machine Learning at Nehru College of Engineering and Research Centre (NCERC), Pampady, Thrissur, Kerala.",
+  keywords: [
+    "CYPHER",
+    "AIML",
+    "NCERC",
+    "Nehru College of Engineering",
+    "Artificial Intelligence",
+    "Machine Learning",
+    "Thrissur",
+    "KTU",
+  ],
 };
 
 export default function RootLayout({
@@ -32,16 +46,15 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${outfit.variable} ${inter.variable} dark antialiased`}
+      className={`${outfit.variable} ${inter.variable} ${playfair.variable} antialiased`}
     >
       <body
         suppressHydrationWarning
-        className="min-h-screen bg-[#07080A] text-[#F0F6FC] selection:bg-[#00F0FF]/20 selection:text-[#00F0FF]"
+        className="min-h-screen bg-[#F4F5F8] text-[#0F172A] selection:bg-[#DC2626]/20 selection:text-[#DC2626]"
       >
         <SmoothScrollProvider>
           {children}
         </SmoothScrollProvider>
-        <APITesterModal />
       </body>
     </html>
   );

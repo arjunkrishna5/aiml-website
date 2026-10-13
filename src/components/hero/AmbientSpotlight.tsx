@@ -35,19 +35,19 @@ export function AmbientSpotlight() {
         } as React.CSSProperties
       }
     >
-      {/* Dynamic Cursor Spotlight (GPU accelerated via CSS variables) */}
+      {/* Dynamic Cursor Spotlight with Crimson & Violet glows */}
       <div
         className="absolute inset-0 opacity-[var(--spotlight-opacity)] transition-opacity duration-500"
         style={{
-          background: `radial-gradient(650px circle at var(--mouse-x) var(--mouse-y), rgba(0, 240, 255, 0.08), rgba(139, 92, 246, 0.05) 40%, transparent 80%)`,
+          background: `radial-gradient(650px circle at var(--mouse-x) var(--mouse-y), rgba(255, 46, 84, 0.08), rgba(0, 240, 255, 0.04) 40%, transparent 80%)`,
         }}
       />
 
-      {/* Top Fixed Ambient Beam (Permanent depth glow) */}
-      <div className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[800px] h-[550px] bg-gradient-to-b from-[#00F0FF]/12 via-[#8B5CF6]/08 to-transparent rounded-full blur-[140px] pointer-events-none" />
+      {/* Top Fixed Ambient Beam */}
+      <div className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[800px] h-[550px] bg-gradient-to-b from-[#FF2E54]/12 via-[#8B5CF6]/08 to-transparent rounded-full blur-[140px] pointer-events-none" />
 
       {/* Subtle Side Ambient Beam */}
-      <div className="absolute top-[40%] right-[-10%] w-[500px] h-[500px] bg-[#8B5CF6]/06 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-[40%] right-[-10%] w-[500px] h-[500px] bg-[#FF2E54]/06 rounded-full blur-[120px] pointer-events-none" />
     </div>
   );
 }
