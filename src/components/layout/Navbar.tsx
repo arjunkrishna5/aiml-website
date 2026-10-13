@@ -5,12 +5,12 @@ import Link from "next/link";
 import { Cpu, Menu, X, ArrowUpRight, Sparkles } from "lucide-react";
 
 const NAV_LINKS = [
-  { name: "Overview", href: "#overview" },
-  { name: "Pillars", href: "#pillars" },
-  { name: "Events", href: "#events" },
-  { name: "Platforms", href: "#platforms" },
-  { name: "AI Sandbox", href: "#sandbox" },
-  { name: "Curriculum", href: "#academics" },
+  { name: "Overview", href: "/#overview" },
+  { name: "Faculty", href: "/faculty" },
+  { name: "Research", href: "/research" },
+  { name: "Events", href: "/events" },
+  { name: "Platforms", href: "/#platforms" },
+  { name: "AI Sandbox", href: "/#sandbox" },
 ];
 
 export function Navbar() {
@@ -55,25 +55,25 @@ export function Navbar() {
           {/* Desktop Navigation Links */}
           <nav className="hidden md:flex items-center gap-1 bg-white/[0.03] border border-white/5 rounded-full px-4 py-1.5 backdrop-blur-md">
             {NAV_LINKS.map((link) => (
-              <a
+              <Link
                 key={link.name}
                 href={link.href}
                 className="px-3.5 py-1.5 rounded-full text-xs font-medium text-[#8B949E] hover:text-white hover:bg-white/5 transition-all"
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
           </nav>
 
           {/* Action CTA & Mobile Toggle */}
           <div className="flex items-center gap-3">
-            <a
-              href="#platforms"
+            <Link
+              href="/#platforms"
               className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold bg-white/5 hover:bg-white/10 text-white border border-white/10 hover:border-[#00F0FF]/40 transition-all duration-300 group shadow-sm"
             >
               <span>Explore Labs</span>
               <ArrowUpRight className="w-3.5 h-3.5 text-[#00F0FF] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </a>
+            </Link>
 
             {/* Mobile menu button */}
             <button
@@ -96,14 +96,14 @@ export function Navbar() {
         <div className="md:hidden border-b border-white/10 bg-[#07080A]/95 backdrop-blur-2xl px-6 pt-4 pb-6 space-y-3 animate-in fade-in slide-in-from-top-4 duration-200">
           <div className="flex flex-col gap-1">
             {NAV_LINKS.map((link) => (
-              <a
+              <Link
                 key={link.name}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
                 className="px-4 py-2.5 rounded-lg text-sm font-medium text-[#8B949E] hover:text-white hover:bg-white/5 transition-colors"
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
           </div>
 

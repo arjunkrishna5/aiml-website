@@ -145,13 +145,13 @@ export function SplitHero() {
             <ArrowRight className="w-4 h-4" />
           </a>
 
-          <a
-            href="#research"
+          <Link
+            href="/research"
             className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-medium text-xs sm:text-sm bg-white/5 hover:bg-white/10 text-white border border-white/10 hover:border-white/20 transition-all duration-300 backdrop-blur-md"
           >
             <FileText className="w-4 h-4 text-[#8B949E]" />
             <span>Research &amp; Publications</span>
-          </a>
+          </Link>
         </div>
 
       </div>
