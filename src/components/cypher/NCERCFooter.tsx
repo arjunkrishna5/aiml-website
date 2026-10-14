@@ -51,17 +51,23 @@ export function NCERCFooter() {
               <Link href="/#vision" className="hover:text-white transition-colors">
                 Vision &amp; Mission Statements
               </Link>
-              <Link href="/#pillars" className="hover:text-white transition-colors">
-                CYPHER Association Pillars
+              <Link href="/#events" className="hover:text-white transition-colors">
+                Flagship Events &amp; Hackathons
               </Link>
-              <Link href="/#committee" className="hover:text-white transition-colors">
-                Executive Committee
-              </Link>
-              <Link href="/#labs" className="hover:text-white transition-colors">
-                Computing Laboratories
+              <Link href="/#projects" className="hover:text-white transition-colors">
+                Academic AI Projects
               </Link>
               <Link href="/faculty" className="hover:text-white transition-colors">
                 Faculty Directory
+              </Link>
+              <Link href="/research" className="hover:text-white transition-colors">
+                Research Publications
+              </Link>
+              <Link href="/verify" className="hover:text-white transition-colors text-emerald-400">
+                Certificate Verification Portal
+              </Link>
+              <Link href="/#committee" className="hover:text-white transition-colors">
+                Executive Committee
               </Link>
             </div>
           </div>

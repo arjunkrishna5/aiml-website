@@ -26,7 +26,7 @@ const ENDPOINTS = [
 export function APITesterModal() {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedEndpoint, setSelectedEndpoint] = useState(ENDPOINTS[0]);
-  const [responseJson, setResponseJson] = useState<any>(null);
+  const [responseJson, setResponseJson] = useState<unknown>(null);
   const [loading, setLoading] = useState(false);
   const [latency, setLatency] = useState<number | null>(null);
   const [httpStatus, setHttpStatus] = useState<number | null>(null);
@@ -49,11 +49,12 @@ export function APITesterModal() {
       setLatency(Math.round(end - start));
       setHttpStatus(res.status);
       setResponseJson(data);
-    } catch (err: any) {
+    } catch (err: unknown) {
       const end = performance.now();
       setLatency(Math.round(end - start));
       setHttpStatus(500);
-      setResponseJson({ error: err.message || "Request failed" });
+      const errMsg = err instanceof Error ? err.message : "Request failed";
+      setResponseJson({ error: errMsg });
     } finally {
       setLoading(false);
     }

@@ -48,9 +48,10 @@ export async function POST(request: Request) {
       },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to process request.";
     return NextResponse.json(
-      { success: false, error: error.message || "Failed to process request." },
+      { success: false, error: message },
       { status: 400 }
     );
   }

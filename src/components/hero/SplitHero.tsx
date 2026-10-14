@@ -1,12 +1,37 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight, Cpu } from "lucide-react";
+import { CursorReactiveBackground } from "./CursorReactiveBackground";
+import { ExpandingNav } from "./ExpandingNav";
 
 export function SplitHero() {
+  const [cardTilt, setCardTilt] = useState({ x: 0, y: 0 });
+
+  const handleHeroMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    setCardTilt({
+      x: -(y * 14), // Tilt X
+      y: x * 14,   // Tilt Y
+    });
+  };
+
+  const handleHeroMouseLeave = () => {
+    setCardTilt({ x: 0, y: 0 });
+  };
+
   return (
-    <section className="relative w-full min-h-[92vh] lg:min-h-screen bg-light-dot-grid flex flex-col justify-between pt-6 sm:pt-8 pb-10 sm:pb-12 px-6 sm:px-10 lg:px-16 overflow-hidden">
-      
+    <section
+      onMouseMove={handleHeroMouseMove}
+      onMouseLeave={handleHeroMouseLeave}
+      className="relative w-full min-h-[92vh] lg:min-h-screen bg-light-dot-grid flex flex-col justify-between pt-6 sm:pt-8 pb-10 sm:pb-12 px-6 sm:px-10 lg:px-16 overflow-hidden"
+    >
+      {/* Dynamic Cursor Reactive Background (Interactive Synapse Matrix & Spring Spotlight) */}
+      <CursorReactiveBackground />
+
       {/* 1. Floating Pill Header (100% faithful to AIDA JECC) */}
       <div className="flex items-center justify-between w-full z-20">
         <Link
@@ -23,19 +48,12 @@ export function SplitHero() {
           </span>
         </Link>
 
-        <div className="flex items-center gap-3">
-          <a
-            href="#about"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#18181B] text-white shadow-xl hover:bg-black transition-all text-xs font-bold tracking-widest uppercase group"
-          >
-            <span>HOME</span>
-            <span className="text-red-500 font-bold text-sm leading-none transition-transform group-hover:rotate-45">+</span>
-          </a>
-        </div>
+        {/* Interactive Expanding Navigation Pill (Reveals full navigation on hover) */}
+        <ExpandingNav />
       </div>
 
       {/* 2. Main Hero Split Typography & Central Red Tilted Stack Card */}
-      <div className="my-auto py-8 sm:py-12">
+      <div className="my-auto py-8 sm:py-12 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-4 items-center">
           
           {/* Left Column: "Artificial Intelligence" (High-contrast Serif) */}
@@ -46,11 +64,15 @@ export function SplitHero() {
             </h1>
           </div>
 
-          {/* Center Column: Floating Tilted Stacked Card (AIDA JECC Exact Style) */}
+          {/* Center Column: Floating Tilted Stacked Card (Dynamic 3D Cursor Parallax) */}
           <div className="lg:col-span-4 flex items-center justify-center my-4 lg:my-0">
             <a
               href="#events"
-              className="relative flex items-center justify-center group cursor-pointer"
+              style={{
+                transform: `perspective(1000px) rotateX(${cardTilt.x}deg) rotateY(${cardTilt.y}deg)`,
+                transition: "transform 0.15s ease-out",
+              }}
+              className="relative flex items-center justify-center group cursor-pointer will-change-transform"
             >
               {/* Back Dark Card tilted +6 degrees */}
               <div className="absolute w-[270px] sm:w-[310px] md:w-[330px] h-[190px] sm:h-[220px] md:h-[230px] rounded-3xl bg-[#0F172A] shadow-2xl rotate-6 transition-transform duration-500 group-hover:rotate-8" />
@@ -104,7 +126,7 @@ export function SplitHero() {
       </div>
 
       {/* 3. Horizontal Separator & Sub-Hero Info Bar */}
-      <div>
+      <div className="relative z-10">
         <div className="w-full border-t border-slate-300/80 mb-6 sm:mb-8" />
         
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6">

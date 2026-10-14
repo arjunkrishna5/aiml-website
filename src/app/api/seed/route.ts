@@ -67,9 +67,10 @@ export async function POST() {
         projects: Object.keys(PROJECTS_DATA).length,
       },
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to seed database.";
     return NextResponse.json(
-      { success: false, error: error.message || "Failed to seed database." },
+      { success: false, error: message },
       { status: 500 }
     );
   }

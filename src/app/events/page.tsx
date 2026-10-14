@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Navbar } from "@/components/layout/Navbar";
 import { AmbientSpotlight } from "@/components/hero/AmbientSpotlight";
@@ -9,18 +9,28 @@ import {
   Calendar,
   MapPin,
   Trophy,
-  Users,
   ArrowRight,
   ChevronLeft,
-  Sparkles,
   Clock,
   Award,
 } from "lucide-react";
 
 export default function EventsPage() {
+  const [events, setEvents] = useState<DepartmentEvent[]>(DEPARTMENT_EVENTS);
   const [activeTab, setActiveTab] = useState<"upcoming" | "past">("upcoming");
 
-  const filteredEvents = DEPARTMENT_EVENTS.filter((e) => e.status === activeTab);
+  useEffect(() => {
+    fetch("/api/events")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.data && Array.isArray(data.data)) {
+          setEvents(data.data);
+        }
+      })
+      .catch((err) => console.warn("Failed to fetch events:", err));
+  }, []);
+
+  const filteredEvents = events.filter((e) => e.status === activeTab);
 
   return (
     <main className="relative min-h-screen bg-[#07080A] text-[#F0F6FC] pb-24">

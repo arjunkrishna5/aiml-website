@@ -7,11 +7,12 @@ import { Cpu, Menu, X, ArrowUpRight } from "lucide-react";
 const NAV_LINKS = [
   { name: "Overview", href: "/#overview" },
   { name: "About", href: "/#about" },
-  { name: "Pillars", href: "/#pillars" },
   { name: "Events", href: "/#events" },
   { name: "Projects", href: "/#projects" },
+  { name: "Faculty", href: "/faculty" },
+  { name: "Research", href: "/research" },
+  { name: "Verify Certs", href: "/verify" },
   { name: "Committee", href: "/#committee" },
-  { name: "Labs", href: "/#labs" },
 ];
 
 export function Navbar() {

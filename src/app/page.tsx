@@ -2,10 +2,8 @@ import { Navbar } from "@/components/layout/Navbar";
 import { SplitHero } from "@/components/hero/SplitHero";
 import { VisionMission } from "@/components/cypher/VisionMission";
 import { AboutHOD } from "@/components/cypher/AboutHOD";
-import { CypherPillars } from "@/components/cypher/CypherPillars";
 import { EventsShowcase } from "@/components/cypher/EventsShowcase";
 import { AcademicProjects } from "@/components/cypher/AcademicProjects";
-import { DepartmentLabs } from "@/components/cypher/DepartmentLabs";
 import { ExecutiveCommittee } from "@/components/cypher/ExecutiveCommittee";
 import { NCERCFooter } from "@/components/cypher/NCERCFooter";
 
@@ -33,17 +31,11 @@ export default function Home() {
           {/* Department Highlights & Message from HOD */}
           <AboutHOD />
 
-          {/* CYPHER Four Core Activity Pillars */}
-          <CypherPillars />
-
           {/* Flagship Hackathons, Workshops & Tech Talks */}
           <EventsShowcase />
 
           {/* Academic Projects Showcase */}
           <AcademicProjects />
-
-          {/* Computing Laboratories */}
-          <DepartmentLabs />
 
           {/* Executive Committee */}
           <ExecutiveCommittee />
