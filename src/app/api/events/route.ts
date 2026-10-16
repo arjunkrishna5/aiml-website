@@ -1,29 +1,42 @@
 import { NextResponse } from "next/server";
-import { connectToDatabase } from "@/lib/db";
-import { EventModel } from "@/models/Event";
+import { supabaseAdmin } from "@/lib/supabase";
 import { getLocalEvents, addLocalEvent, removeLocalEvent } from "@/lib/eventStore";
 import { DepartmentEvent } from "@/data/departmentData";
 
 export async function GET() {
   try {
-    const conn = await connectToDatabase();
-    if (conn) {
-      const dbEvents = await EventModel.find().sort({ createdAt: -1 }).lean();
-      if (dbEvents && dbEvents.length > 0) {
-        return NextResponse.json({
-          source: "mongodb",
-          count: dbEvents.length,
-          data: dbEvents,
-        });
-      }
+    const { data: supaEvents, error } = await supabaseAdmin
+      .from("events")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (!error && supaEvents && supaEvents.length > 0) {
+      const mapped = supaEvents.map((e) => ({
+        id: e.id,
+        title: e.title,
+        tagline: e.tagline || "",
+        date: e.event_date || "",
+        category: e.category || "Hackathon",
+        venue: e.venue || "NCERC Campus",
+        status: e.status || "Upcoming",
+        registrationLink: e.registration_link || "",
+        prizePool: e.prize_pool || "",
+        description: e.description || "",
+      }));
+
+      return NextResponse.json({
+        source: "supabase",
+        count: mapped.length,
+        data: mapped,
+      });
     }
   } catch (error) {
-    console.warn("Falling back to local events dataset:", error);
+    console.warn("Supabase lookup fallback to local events:", error);
   }
 
   const localList = getLocalEvents();
   return NextResponse.json({
-    source: "hybrid-seed-fallback",
+    source: "local-cache",
     count: localList.length,
     data: localList,
   });
@@ -43,41 +56,48 @@ export async function POST(request: Request) {
     const eventId = body.id || `event-${Date.now()}`;
     const newEvent: DepartmentEvent = {
       id: eventId,
-      title: body.title.trim(),
-      tagline: body.tagline ? body.tagline.trim() : "CYPHER AIML Department Event",
-      date: body.date.trim(),
+      title: body.title,
+      tagline: body.tagline || "",
+      date: body.date,
       status: body.status || "upcoming",
       category: body.category || "Hackathon",
-      venue: body.venue ? body.venue.trim() : "NCERC Campus, Pampady",
-      registrationOpen: typeof body.registrationOpen === "boolean" ? body.registrationOpen : true,
-      prizePool: body.prizePool ? body.prizePool.trim() : undefined,
-      attendees: body.attendees ? body.attendees.trim() : undefined,
-      winners: body.winners ? body.winners.trim() : undefined,
-      description: body.description ? body.description.trim() : body.title,
+      venue: body.venue || "Aryabhatta Central Computing Block, NCERC",
+      registrationOpen: body.registrationOpen ?? true,
+      attendees: body.attendees || "250+ Engineers",
+      description: body.description || "",
+      prizePool: body.prizePool || "",
+      registrationLink: body.registrationLink || "",
     };
 
-    // Save to DB if available
+    // Save to Supabase
     try {
-      const conn = await connectToDatabase();
-      if (conn) {
-        await EventModel.create(newEvent);
-      }
-    } catch (dbError) {
-      console.warn("MongoDB create event fallback to local store:", dbError);
+      await supabaseAdmin.from("events").upsert({
+        id: newEvent.id,
+        title: newEvent.title,
+        tagline: newEvent.tagline,
+        event_date: newEvent.date,
+        category: newEvent.category,
+        venue: newEvent.venue,
+        status: newEvent.status,
+        registration_link: newEvent.registrationLink,
+        prize_pool: newEvent.prizePool,
+        description: newEvent.description,
+      });
+    } catch (err) {
+      console.warn("Could not insert event into Supabase, saving locally:", err);
     }
 
-    // Always store in runtime store
     addLocalEvent(newEvent);
 
-    return NextResponse.json(
-      { success: true, message: "Department event published successfully.", data: newEvent },
-      { status: 201 }
-    );
+    return NextResponse.json({
+      success: true,
+      data: newEvent,
+    });
   } catch (error: unknown) {
-    const message = error instanceof Error ? error.message : "Failed to process request.";
+    const msg = error instanceof Error ? error.message : "Unknown error";
     return NextResponse.json(
-      { success: false, error: message },
-      { status: 400 }
+      { success: false, error: msg },
+      { status: 500 }
     );
   }
 }
@@ -88,23 +108,20 @@ export async function DELETE(request: Request) {
     const id = searchParams.get("id");
 
     if (!id) {
-      return NextResponse.json({ success: false, error: "Event ID is required." }, { status: 400 });
+      return NextResponse.json({ success: false, error: "Missing event ID." }, { status: 400 });
     }
 
     try {
-      const conn = await connectToDatabase();
-      if (conn) {
-        await EventModel.findOneAndDelete({ id });
-      }
-    } catch (dbErr) {
-      console.warn("MongoDB delete fallback to local store:", dbErr);
+      await supabaseAdmin.from("events").delete().eq("id", id);
+    } catch (err) {
+      console.warn("Could not delete from Supabase:", err);
     }
 
     removeLocalEvent(id);
 
-    return NextResponse.json({ success: true, message: `Event ${id} removed.` });
+    return NextResponse.json({ success: true, message: "Event removed." });
   } catch (error: unknown) {
-    const message = error instanceof Error ? error.message : "Failed to delete event.";
-    return NextResponse.json({ success: false, error: message }, { status: 400 });
+    const msg = error instanceof Error ? error.message : "Unknown error";
+    return NextResponse.json({ success: false, error: msg }, { status: 500 });
   }
 }

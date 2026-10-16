@@ -102,10 +102,10 @@ export function AboutHOD() {
           <div className="pt-6 mt-6 border-t border-white/5 flex items-center justify-between">
             <div>
               <h4 className="font-[family-name:var(--font-outfit)] text-lg font-bold text-white">
-                Head of Department
+                Dr. Anuja
               </h4>
-              <p className="text-xs text-[#FF2E54] font-medium">
-                Department of Artificial Intelligence &amp; Machine Learning
+              <p className="text-xs text-[#DC2626] font-medium">
+                Head of Department, AI &amp; Machine Learning
               </p>
               <p className="text-[11px] text-[#94A3B8]">
                 Nehru College of Engineering and Research Centre (NCERC)

@@ -89,7 +89,7 @@ export function APITesterModal() {
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md animate-in fade-in duration-200">
           <div className="relative w-full max-w-3xl glass-card rounded-3xl p-6 sm:p-8 border border-white/10 shadow-[0_16px_60px_rgba(0,0,0,0.8)] overflow-hidden">
-            
+
             {/* Header */}
             <div className="flex items-center justify-between pb-5 border-b border-white/5">
               <div className="flex items-center gap-3">
@@ -128,11 +128,10 @@ export function APITesterModal() {
                       setSelectedEndpoint(ep);
                       runRequest(ep);
                     }}
-                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono transition-all ${
-                      isSelected
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono transition-all ${isSelected
                         ? "bg-[#00F0FF]/15 text-[#00F0FF] border border-[#00F0FF]/40 shadow-[0_0_15px_rgba(0,240,255,0.15)]"
                         : "bg-white/5 text-[#8B949E] hover:text-white border border-white/5"
-                    }`}
+                      }`}
                   >
                     <span className="text-[10px] font-bold text-[#8B5CF6]">
                       {ep.method}
@@ -161,11 +160,10 @@ export function APITesterModal() {
                 )}
                 {httpStatus !== null && (
                   <span
-                    className={`text-xs font-mono px-2 py-0.5 rounded ${
-                      httpStatus === 200 || httpStatus === 201
+                    className={`text-xs font-mono px-2 py-0.5 rounded ${httpStatus === 200 || httpStatus === 201
                         ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
                         : "bg-amber-500/10 text-amber-400 border border-amber-500/20"
-                    }`}
+                      }`}
                   >
                     HTTP {httpStatus}
                   </span>
@@ -190,7 +188,7 @@ export function APITesterModal() {
                   <Terminal className="w-3.5 h-3.5 text-[#00F0FF]" />
                   Live JSON Response:
                 </span>
-                {responseJson && (
+                {Boolean(responseJson) && (
                   <button
                     onClick={copyToClipboard}
                     className="inline-flex items-center gap-1 hover:text-white transition-colors"
@@ -214,8 +212,8 @@ export function APITesterModal() {
                 {loading
                   ? "Awaiting response from backend Route Handler..."
                   : responseJson
-                  ? JSON.stringify(responseJson, null, 2)
-                  : "Click 'Send' to test endpoint."}
+                    ? JSON.stringify(responseJson, null, 2)
+                    : "Click 'Send' to test endpoint."}
               </pre>
             </div>
 

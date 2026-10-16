@@ -1,67 +1,85 @@
 "use client";
 
-import { Users, UserCheck, Shield } from "lucide-react";
+import { useEffect, useState } from "react";
+import { UserCheck } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 
-const COMMITTEE_MEMBERS = [
+interface CommitteeMemberItem {
+  name: string;
+  role: string;
+  designation: string;
+  badge: string;
+  isLeader: boolean;
+}
+
+const DEFAULT_MEMBERS: CommitteeMemberItem[] = [
   {
     role: "Faculty Mentor",
-    name: "Dr. Bobby Mathews",
+    name: "Dr. Anuja",
     designation: "Head of Department, AI & ML",
     badge: "HOD & Mentor",
     isLeader: true,
   },
   {
     role: "Staff Coordinator",
-    name: "Prof. Rahul M",
+    name: "Mrs. Sreeji",
     designation: "Assistant Professor, Dept of AI & ML",
     badge: "Faculty In-Charge",
     isLeader: true,
   },
   {
     role: "Student President",
-    name: "Arjun Krishna",
+    name: "Member X",
     designation: "Department Association President",
     badge: "Student Head",
     isLeader: false,
   },
   {
     role: "Vice President",
-    name: "Sneha P",
+    name: "Member Y",
     designation: "Executive Vice President",
     badge: "Student Lead",
     isLeader: false,
   },
   {
     role: "General Secretary",
-    name: "Muhammed Nihal",
+    name: "Member Z",
     designation: "Operations & Secretarial Lead",
     badge: "Operations",
-    isLeader: false,
-  },
-  {
-    role: "Joint Secretary",
-    name: "Ananya Nair",
-    designation: "Academic & Event Coordination",
-    badge: "Coordination",
-    isLeader: false,
-  },
-  {
-    role: "Technical Head",
-    name: "Adithyan S",
-    designation: "Hackathons & Coding Sprints Lead",
-    badge: "Technical Head",
-    isLeader: false,
-  },
-  {
-    role: "Media & Design Lead",
-    name: "Devika R",
-    designation: "Creative Design & Public Relations",
-    badge: "Creative & Media",
     isLeader: false,
   },
 ];
 
 export function ExecutiveCommittee() {
+  const [members, setMembers] = useState<CommitteeMemberItem[]>(DEFAULT_MEMBERS);
+
+  useEffect(() => {
+    // If Supabase committee_members table has rows, load them live!
+    const fetchLiveCommittee = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("committee_members")
+          .select("*")
+          .order("display_order", { ascending: true });
+
+        if (!error && data && data.length > 0) {
+          const mapped: CommitteeMemberItem[] = data.map((item) => ({
+            name: item.name,
+            role: item.role,
+            designation: item.designation || "Dept of AI & ML",
+            badge: item.badge || (item.is_faculty ? "Faculty In-Charge" : "Student Lead"),
+            isLeader: Boolean(item.is_faculty),
+          }));
+          setMembers(mapped);
+        }
+      } catch (err) {
+        console.warn("Using default committee list:", err);
+      }
+    };
+
+    fetchLiveCommittee();
+  }, []);
+
   return (
     <section id="committee" className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
       
@@ -76,18 +94,18 @@ export function ExecutiveCommittee() {
           </h2>
         </div>
         <p className="mt-2 md:mt-0 text-xs sm:text-sm text-slate-400 max-w-md">
-          The student office bearers and faculty coordinators steering CYPHER activities, workshops, and student mentorship at NCERC.
+          The faculty mentors and student office bearers steering CYPHER activities, workshops, and community mentorship at NCERC.
         </p>
       </div>
 
-      {/* Grid of Committee Members */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {COMMITTEE_MEMBERS.map((member, idx) => (
+      {/* Grid of Committee Members (5 Cards Layout) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+        {members.map((member, idx) => (
           <div
             key={idx}
-            className={`rounded-3xl p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 group relative overflow-hidden ${
+            className={`rounded-3xl p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 group relative overflow-hidden min-h-[220px] ${
               member.isLeader
-                ? "bg-[#10121A] border border-[#DC2626]/40 shadow-[0_0_20px_rgba(220,38,38,0.1)]"
+                ? "bg-[#10121A] border border-[#DC2626]/50 shadow-[0_0_24px_rgba(220,38,38,0.12)]"
                 : "bg-[#10121A] border border-white/10 hover:border-white/20"
             }`}
           >
@@ -113,7 +131,7 @@ export function ExecutiveCommittee() {
               <span className="text-[11px] font-mono text-slate-400 uppercase tracking-wider block mb-1">
                 {member.role}
               </span>
-              <h3 className="text-lg font-bold text-white mb-1 group-hover:text-red-400 transition-colors">
+              <h3 className="text-base sm:text-lg font-bold text-white mb-1 group-hover:text-red-400 transition-colors">
                 {member.name}
               </h3>
               <p className="text-xs text-slate-400 leading-relaxed">

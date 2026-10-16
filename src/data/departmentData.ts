@@ -38,6 +38,7 @@ export interface DepartmentEvent {
   prizePool?: string;
   attendees?: string;
   winners?: string;
+  registrationLink?: string;
   description: string;
 }
 
